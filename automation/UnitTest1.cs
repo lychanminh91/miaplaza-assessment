@@ -1,5 +1,6 @@
 using System.Text.RegularExpressions;
 using Microsoft.Playwright.MSTest;
+using Microsoft.Playwright;
 
 namespace PlaywrightTests;
 
@@ -45,8 +46,10 @@ public class ExampleTest : PageTest
         await Page.ClickAsync("//span[@class=\"multiAttType cusChoiceSpan\"]");
         await Page.ClickAsync("//input[@id=\"Date-date\"]");
         await Page.Keyboard.PressAsync("Enter");
-        await Page.WaitForTimeoutAsync(3000);
         await Page.ClickAsync("//ul[@page_no=\"2\"]//button[@elname=\"next\"]");
+
+        // to verify that proceed to student information page successfully
+        await Expect(Page.Locator("//span[contains(text(),\"How many students would you like to enroll?\")]")).ToBeVisibleAsync();
 
     }
 
